@@ -1,4 +1,8 @@
-## Title: CommandBar
+## Title: WoW Enhanced
 ## Version: 2
+
+Camera.lua
+CVar.lua
+Timer.lua
 
 Slash.lua
