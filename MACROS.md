@@ -15,6 +15,13 @@ Useful to avoid having to change trinket binds with new trinkets.
 
 ## Rogue
 
+Easy and convenient Pick Pocket.
+```
+#showtooltip
+/targetnearest
+/cast Pick Pocket
+```
+
 Sap and Pick Pocket at the same time.
 Also target nearest target, avoiding the necessity for tabbing between targets.
 NOTE: Pick Pocket requires standing still and has only 5 yards range vs Sap with 10 yards.

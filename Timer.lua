@@ -4,7 +4,7 @@ local Timer = {}
 
 local function print_with(with)
     if with ~= '' then
-        print('Combat opened with ' .. with)
+        addon.Output.Raid('Combat opened with ' .. with)
     end
 end
 
@@ -16,16 +16,22 @@ local function pause_out_of_combat()
     return combat
 end
 
-function Timer.Start(with)
-    Stopwatch_Clear()
-    print_with(with)
-    Stopwatch_Play()
+-- TODO: CombatStartDelay `/startcombat 3.5 Fireball`
+-- Consider if a more unified approach to delays would be appropriate.
+
+function Timer.CombatStart(with)
+    if not UnitAffectingCombat('player') then
+        Stopwatch_Clear()
+        print_with(with)
+        Stopwatch_Play()
+    end
 end
 
-function Timer.Stop(with)
+function Timer.CombatEnd(with)
     print_with(with)
     if not pause_out_of_combat() then
         C_Timer.After(1, pause_out_of_combat)
+        C_Timer.After(2, pause_out_of_combat)
     end
 end
 

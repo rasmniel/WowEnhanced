@@ -1,6 +1,8 @@
 ## Title: WoW Enhanced
 ## Version: 2
 
+Output.lua
+
 Camera.lua
 CVar.lua
 Timer.lua

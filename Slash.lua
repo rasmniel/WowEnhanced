@@ -19,23 +19,21 @@ RegisterNewSlashCommand(
     'setzoom'
 )
 
-
 -- Timer
 
 RegisterNewSlashCommand(
     ArgumentHandler(function(args)
-        addon.Timer.Start(args[0])
+        addon.Timer.CombatStart(args[0])
     end),
-    'timestart'
+    'startcombat'
 )
 
 RegisterNewSlashCommand(
     ArgumentHandler(function(args)
-        addon.Timer.Stop(args[0])
+        addon.Timer.CombatEnd(args[0])
     end),
-    'timestop'
+    'stopcombat'
 )
-
 
 -- CVar toggles
 
@@ -44,21 +42,37 @@ RegisterNewSlashCommand(
         local var, from, to = unpack(args)
         addon.CVar.Toggle(var, from, to)
     end),
-    'vartoggle'
+    'togglevar'
+)
+
+RegisterNewSlashCommand(
+    ArgumentHandler(function(args)
+        local from, to = unpack(args)
+        addon.CVar.Toggle('Sound_MusicVolume', from or 0, to or 0.3)
+    end),
+    'togglemusic'
 )
 
 RegisterNewSlashCommand(
     ArgumentHandler(function(args)
         local from, to = unpack(args)
         addon.CVar.Toggle('Sound_AmbienceVolume', from or 0, to or 0.3)
-        addon.CVar.Toggle('Sound_MusicVolume', from or 0, to or 0.3)
     end),
-    'ambtoggle'
+    'toggleamb'
+)
+
+RegisterNewSlashCommand(
+    ArgumentHandler(function(args)
+        local from, to = unpack(args)
+        addon.CVar.Toggle('Sound_SFXVolume', from or 0.3, to or 1)
+    end),
+    'togglesfx'
 )
 
 RegisterNewSlashCommand(
     ArgumentHandler(function()
         addon.CVar.Toggle('Sound_EnableAllSound', 0, 1)
     end),
-    'mutetoggle'
+    'togglemute'
 )
+
