@@ -2,7 +2,14 @@ local _, addon = ...
 
 local Timer = {}
 
+local running = false
+
 local function run_combat_timer(label)
+    if running then
+        return
+    end
+    running = true
+
     -- Show a label if one was provided.
     if label and label ~= '' then
         addon.Output.Raid('Combat opened with: ' .. label)
@@ -16,6 +23,7 @@ local function run_combat_timer(label)
     -- Stop the timer when combat ends.
     addon.Events.NextCombatEnd(function()
         Stopwatch_Pause()
+        running = false
     end)
 end
 
