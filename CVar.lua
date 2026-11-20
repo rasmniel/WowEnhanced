@@ -3,9 +3,8 @@ local _, addon = ...
 local CVar = {}
 
 function CVar.Toggle(var, from, to)
-    local value = GetCVar(var)
-    if value ~= from and value ~= to then
-        print('Var ' .. var .. ' not in boundary: ' .. from .. ' - ' .. to)
+    if type(var) ~= 'string' or type(from) ~= 'number' or type(to) ~= 'number' then
+        print('Usage: /togglevar <var:string> <from:number> <to:number>')
     end
     SetCVar(var, GetCVar(var) == tostring(from) and to or from)
 end

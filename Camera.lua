@@ -4,8 +4,8 @@ local Camera = {}
 
 local function validate_zoom(target)
     target = tonumber(target)
-    if not target then
-        print('Invalid zoom: ' .. target)
+    if type(target) ~= 'number' then
+        print('Usage: /setzoom <number>')
         return nil
     end
     return target

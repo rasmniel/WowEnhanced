@@ -22,6 +22,7 @@ end
 
 function Timer.CombatStart(with)
     if not UnitAffectingCombat('player') then
+        StopwatchFrame:Show()
         Stopwatch_Clear()
         -- print_with(with)
         Stopwatch_Play()
