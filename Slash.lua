@@ -17,6 +17,7 @@ function RegisterSlash(name, handler)
         ArgumentHandler(function(arg_table)
             handler(arg_table)
         end),
+        name,
         name
     )
 end
