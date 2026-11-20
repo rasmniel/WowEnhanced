@@ -2,7 +2,7 @@ local _, addon = ...
 
 local Timer = {}
 
-local function time_combat()
+local function run_combat_timer(label)
     -- Show a label if one was provided.
     if label and label ~= '' then
         addon.Output.Raid('Combat opened with: ' .. label)
@@ -19,13 +19,15 @@ local function time_combat()
     end)
 end
 
---- Start combat timer.
+--- Start combat timer based on the combat state.
 ---@param label string Label to print when starting combat.
 function Timer.CombatTime(label)
     if InCombatLockdown() then
-        time_combat()
+        run_combat_timer(label)
     else
-        addon.Events.NextCombatStart(time_combat)
+        addon.Events.NextCombatStart(function()
+            run_combat_timer(label)
+        end)
     end
 end
 
