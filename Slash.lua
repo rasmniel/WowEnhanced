@@ -2,6 +2,8 @@ local addonName, addon = ...
 
 print('Loaded: ' .. addonName .. '!')
 
+-- TODO: Move all validation to this level and declare functions with type documentation.
+
 function ArgumentHandler(handler)
     return function(arg_string)
         local args = {}
