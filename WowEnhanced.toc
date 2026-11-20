@@ -2,10 +2,11 @@
 ## Title: WoW Enhanced
 ## Version: 2
 
-Output.lua
+Utils/Output.lua
+Utils/Events.lua
 
-Camera.lua
-CVar.lua
-Timer.lua
+Modules/Camera.lua
+Modules/CVar.lua
+Modules/Timer.lua
 
 Slash.lua

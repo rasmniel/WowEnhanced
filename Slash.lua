@@ -2,66 +2,68 @@ local addonName, addon = ...
 
 print('Loaded: ' .. addonName .. '!')
 
--- TODO: Move all validation to this level and declare functions with type documentation.
-
-function ArgumentHandler(handler)
-    return function(arg_string)
-        local args = {}
-        for arg in string.gmatch(arg_string, '%S+') do
-            table.insert(args, arg)
-        end
-        handler(args)
-    end
-end
-
+--- Register a slash command using an indexed table argument instead of a single string.
 function RegisterSlash(name, handler)
-    RegisterNewSlashCommand(
-        ArgumentHandler(function(arg_table)
-            handler(arg_table)
-        end),
-        name,
-        name
-    )
+    RegisterNewSlashCommand(function(arg_string)
+        local arg_table = {}
+        for arg in string.gmatch(arg_string, '%S+') do
+            table.insert(arg_table, arg)
+        end
+        handler(arg_table)
+    end, name, name)
 end
 
 -- Camera
 
 RegisterSlash('setzoom', function(args)
-    addon.Camera.SetZoom(args[1])
-end)
-
--- Timer
-
-RegisterSlash('startcombat', function(args)
-    addon.Timer.CombatStart(args[1])
-end)
-
-RegisterSlash('stopcombat', function(args)
-    addon.Timer.CombatEnd(args[1])
+    local target = tonumber(args[1])
+    if type(target) ~= 'number' then
+        return addon.Output.Usage('setzoom', { target = 'number' })
+    end
+    addon.Camera.SetZoom(target)
 end)
 
 -- CVar toggles
 
 RegisterSlash('togglevar', function(args)
     local var, from, to = unpack(args)
+    if type(var) ~= 'string' and addon.CVar.ValidateRangue(from, to) then
+        return addon.Output.Usage('togglevar', { var = 'string', from = 'number', to = 'number' })
+    end
     addon.CVar.Toggle(var, from, to)
 end)
 
 RegisterSlash('togglemusic', function(args)
     local from, to = unpack(args)
+    if addon.CVar.ValidateRange(from, to) then
+        return addon.Output.Usage('togglemusic', { from = 'number', to = 'number' })
+    end
     addon.CVar.Toggle('Sound_MusicVolume', from or 0, to or 0.3)
 end)
 
 RegisterSlash('toggleamb', function(args)
     local from, to = unpack(args)
+    if addon.CVar.ValidateRange(from, to) then
+        return addon.Output.Usage('toggleamb', { from = 'number', to = 'number' })
+    end
     addon.CVar.Toggle('Sound_AmbienceVolume', from or 0, to or 0.3)
 end)
 
 RegisterSlash('togglesfx', function(args)
     local from, to = unpack(args)
+    if addon.CVar.ValidateRange(from, to) then
+        return addon.Output.Usage('togglesfx', { from = 'number', to = 'number' })
+    end
     addon.CVar.Toggle('Sound_SFXVolume', from or 0.3, to or 1)
 end)
 
 RegisterSlash('togglemute', function(_)
     addon.CVar.Toggle('Sound_EnableAllSound', 0, 1)
+end)
+
+-- Timer
+
+RegisterSlash('startcombat', function(args)
+    local with = tostring(args[1])
+    addon.Timer.CombatTime(with)
 end)
