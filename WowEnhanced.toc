@@ -1,3 +1,4 @@
+## Interface 16001
 ## Title: WoW Enhanced
 ## Version: 2
 
