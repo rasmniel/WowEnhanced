@@ -12,7 +12,7 @@ local function run_combat_timer(label)
 
     -- Show a label if one was provided.
     if label and label ~= '' then
-        addon.Output.Raid('Combat opened with: ' .. label)
+        addon.Output.Raid('Combat started: ' .. label, ChatTypeInfo['SYSTEM'])
     end
 
     -- Show and start timer.
