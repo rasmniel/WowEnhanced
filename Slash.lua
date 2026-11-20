@@ -1,78 +1,64 @@
 local addonName, addon = ...
 
+print('Loaded: ' .. addonName .. '!')
+
 function ArgumentHandler(handler)
-    return function(argstring)
+    return function(arg_string)
         local args = {}
-        for arg in string.gmatch(argstring, '%S+') do
+        for arg in string.gmatch(arg_string, '%S+') do
             table.insert(args, arg)
         end
         handler(args)
     end
 end
 
+function RegisterSlash(name, handler)
+    RegisterNewSlashCommand(
+        ArgumentHandler(function(arg_table)
+            handler(arg_table)
+        end),
+        name
+    )
+end
+
 -- Camera
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function(args)
-        addon.Camera.SetZoom(args[0])
-    end),
-    'setzoom'
-)
+RegisterSlash('setzoom', function(args)
+    addon.Camera.SetZoom(args[1])
+end)
 
 -- Timer
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function(args)
-        addon.Timer.CombatStart(args[0])
-    end),
-    'startcombat'
-)
+RegisterSlash('startcombat', function(args)
+    addon.Timer.CombatStart(args[1])
+end)
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function(args)
-        addon.Timer.CombatEnd(args[0])
-    end),
-    'stopcombat'
-)
+RegisterSlash('stopcombat', function(args)
+    addon.Timer.CombatEnd(args[1])
+end)
 
 -- CVar toggles
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function(args)
-        local var, from, to = unpack(args)
-        addon.CVar.Toggle(var, from, to)
-    end),
-    'togglevar'
-)
+RegisterSlash('togglevar', function(args)
+    local var, from, to = unpack(args)
+    addon.CVar.Toggle(var, from, to)
+end)
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function(args)
-        local from, to = unpack(args)
-        addon.CVar.Toggle('Sound_MusicVolume', from or 0, to or 0.3)
-    end),
-    'togglemusic'
-)
+RegisterSlash('togglemusic', function(args)
+    local from, to = unpack(args)
+    addon.CVar.Toggle('Sound_MusicVolume', from or 0, to or 0.3)
+end)
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function(args)
-        local from, to = unpack(args)
-        addon.CVar.Toggle('Sound_AmbienceVolume', from or 0, to or 0.3)
-    end),
-    'toggleamb'
-)
+RegisterSlash('toggleamb', function(args)
+    local from, to = unpack(args)
+    addon.CVar.Toggle('Sound_AmbienceVolume', from or 0, to or 0.3)
+end)
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function(args)
-        local from, to = unpack(args)
-        addon.CVar.Toggle('Sound_SFXVolume', from or 0.3, to or 1)
-    end),
-    'togglesfx'
-)
+RegisterSlash('togglesfx', function(args)
+    local from, to = unpack(args)
+    addon.CVar.Toggle('Sound_SFXVolume', from or 0.3, to or 1)
+end)
 
-RegisterNewSlashCommand(
-    ArgumentHandler(function()
-        addon.CVar.Toggle('Sound_EnableAllSound', 0, 1)
-    end),
-    'togglemute'
-)
-
+RegisterSlash('togglemute', function(_)
+    addon.CVar.Toggle('Sound_EnableAllSound', 0, 1)
+end)
