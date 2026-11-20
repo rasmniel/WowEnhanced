@@ -64,6 +64,9 @@ end)
 -- Timer
 
 RegisterSlash('startcombat', function(args)
-    local with = tostring(args[1])
-    addon.Timer.CombatTime(with)
+    local label = args[1]
+    if label then
+        label = tostring(label)
+    end
+    addon.Timer.CombatTime(label)
 end)
