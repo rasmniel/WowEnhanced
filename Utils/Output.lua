@@ -17,14 +17,16 @@ Output.Colors = Colors
 ---@param message string The message to output.
 ---@param color table The color of the text. Default: white.
 function Output.Chat(message, color)
-    DEFAULT_CHAT_FRAME:AddMessage(message, color or Colors.white)
+    local c = color or Colors.white
+    DEFAULT_CHAT_FRAME:AddMessage(message, c.r, c.g, c.b)
 end
 
 --- Output an arbitrary string to the UI error frame.
 ---@param message string The message to output.
 ---@param color table The color of the text. Default: white.
 function Output.UIError(message, color)
-    UIErrorsFrame:AddMessage(message, color or Colors.white)
+    local c = color or Colors.white
+    UIErrorsFrame:AddMessage(message, c.r, c.g, c.b)
 end
 
 --- Output an arbitrary string to the UI error frame.

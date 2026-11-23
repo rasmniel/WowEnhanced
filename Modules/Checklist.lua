@@ -22,13 +22,16 @@ end
 ---@param target number The target item count.
 function Checklist.CheckItemCount(item, target)
     local count = get_item_count_by_name(item)
-    if count == 0 or count == 1 or count == 2 then
+    if count >= target then
+        return
+    elseif count == 0 or count == 1 or count == 2 then
         output_item_state(item, count, target, colors.red)
     elseif count < target / 2 then
         output_item_state(item, count, target, colors.orange)
     elseif count < target then
         output_item_state(item, count, target, colors.green)
     else
+        -- This case should never occur.
         output_item_state(item, count, target, colors.white)
     end
 end

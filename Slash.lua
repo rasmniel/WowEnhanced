@@ -9,7 +9,7 @@ function RegisterSlash(name, handler)
         for arg in string.gmatch(arg_string, '%S+') do
             table.insert(arg_table, arg)
         end
-        handler(arg_table)
+        handler(arg_table, arg_string)
     end, name, name)
 end
 
@@ -73,10 +73,10 @@ end)
 
 -- Checklist
 
-RegisterSlash('checklist', function(args)
-    local item, target = unpack(args)
+RegisterSlash('checklist', function(args, arg_string)
+    local target = table.remove(args)
     target = tonumber(target)
+    local item = arg_string:sub(target, '')
+    print(item, target)
     addon.Checklist.CheckItemCount(item, target)
 end)
-
-
