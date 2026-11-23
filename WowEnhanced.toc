@@ -6,6 +6,7 @@ Utils/Output.lua
 Utils/Events.lua
 
 Modules/Camera.lua
+Modules/Checklist.lua
 Modules/CVar.lua
 Modules/Timer.lua
 
