@@ -70,3 +70,13 @@ RegisterSlash('startcombat', function(args)
     end
     addon.Timer.CombatTime(label)
 end)
+
+-- Checklist
+
+RegisterSlash('checklist', function(args)
+    local item, target = unpack(args)
+    target = tonumber(target)
+    addon.Checklist.CheckItemCount(item, target)
+end)
+
+

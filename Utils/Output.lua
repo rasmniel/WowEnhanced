@@ -3,21 +3,28 @@ local _, addon = ...
 local Output = {}
 
 local Colors = {
-    default = { r = 1, g = 1, b = 1 },
+    white = { r = 1, g = 1, b = 1 },
+    black = { r = 0, g = 0, b = 0 },
+    red = { r = 1, g = 0, b = 0 },
+    green = { r = 0, g = 1, b = 0 },
+    blue = { r = 0, g = 0, b = 1 },
+    orange = { r = 1, g = 0.5, b = 0 },
 }
+
+Output.Colors = Colors
 
 --- Output an arbitrary string to the chat window.
 ---@param message string The message to output.
 ---@param color table The color of the text. Default: white.
 function Output.Chat(message, color)
-    DEFAULT_CHAT_FRAME:AddMessage(message, color or Colors.default)
+    DEFAULT_CHAT_FRAME:AddMessage(message, color or Colors.white)
 end
 
 --- Output an arbitrary string to the UI error frame.
 ---@param message string The message to output.
 ---@param color table The color of the text. Default: white.
 function Output.UIError(message, color)
-    UIErrorsFrame:AddMessage(message, color or Colors.default)
+    UIErrorsFrame:AddMessage(message, color or Colors.white)
 end
 
 --- Output an arbitrary string to the UI error frame.
