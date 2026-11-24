@@ -4,6 +4,7 @@
 
 Utils/Output.lua
 Utils/Events.lua
+Utils/Frames.lua
 
 Modules/Camera.lua
 Modules/Checklist.lua

@@ -57,7 +57,7 @@ RegisterSlash('togglesfx', function(args)
     addon.CVar.Toggle('Sound_SFXVolume', from or 0.3, to or 1)
 end)
 
-RegisterSlash('togglemute', function(_)
+RegisterSlash('togglemute', function()
     addon.CVar.Toggle('Sound_EnableAllSound', 0, 1)
 end)
 
@@ -78,4 +78,8 @@ RegisterSlash('checklist', function(args, arg_string)
     target = tonumber(target)
     local item = arg_string:gsub(' ' .. target, '')
     addon.Checklist.CheckItemCount(item, target)
+end)
+
+RegisterSlash('frame', function()
+    print(addon.Frames.FindGamepadPageUnitFrame())
 end)
