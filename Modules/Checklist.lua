@@ -67,7 +67,7 @@ function Checklist.CheckDurability()
         end
     end
 
-    if total > 0 then
+    if total > 0 and durability < total then
         local percentage = math.floor((durability / total) * 100)
         local message = string.format('Repair: %d / %d', percentage, 100)
         local color = get_severity_color(percentage, 100)
