@@ -80,6 +80,6 @@ RegisterSlash('checklist', function(args, arg_string)
     addon.Checklist.CheckItemCount(item, target)
 end)
 
-RegisterSlash('frame', function()
-    print(addon.Frames.FindGamepadPageUnitFrame())
+RegisterSlash('checkrepair', function()
+    addon.Checklist.CheckDurability()
 end)
