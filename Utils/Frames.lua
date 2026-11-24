@@ -7,13 +7,26 @@ local function find_frame_by_name_recursively(parent, name)
         return nil
     end
 
-    if parent:GetName() == name then
+    local ok, parent_name = pcall(function()
+        return parent:GetName()
+    end)
+    if not ok then
+        return nil
+    end
+
+    if parent_name == name then
         return parent
     end
 
-    for _, child in ipairs({ parent:GetChildren() }) do
-        local result = find_frame_by_name_recursively(child, name)
+    local ok2, parent_children = pcall(function()
+        return { parent:GetChildren() }
+    end)
+    if not ok2 then
+        return
+    end
 
+    for _, child in ipairs(parent_children) do
+        local result = find_frame_by_name_recursively(child, name)
         if result then
             return result
         end
@@ -25,7 +38,10 @@ local function find_frame_by_name(name)
 end
 
 function Frames.FindGamepadPageUnitFrame()
-    return find_frame_by_name('GamepadActionBarPageUnitTemplate')
+    local a = { GamepadMainActionBarFrame:GetChildren() }
+    return a[2]
+    --return find_frame_by_name_recursively(GamepadMainActionBarFrame, 'GamepadMainActionBarFramePageUnit')
+    --return find_frame_by_name('GamepadMainActionBarFramePageUnit')
 end
 
 addon.Frames = Frames
