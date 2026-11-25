@@ -1,5 +1,9 @@
 local _, addon = ...
 
+-- TODO: Reconsider the use of frames, because most frames are forbidden or restricted.
+--      This results in many unaviodable error messages surfacing to the game client as dialogs when touching forbidden frames.
+--      Many mechanisms still work despite warnings but error dialogs mentioning tainted access is unacceptable.
+
 local Frames = {}
 
 local function find_frame_by_name_recursively(parent, name)
@@ -7,10 +11,10 @@ local function find_frame_by_name_recursively(parent, name)
         return nil
     end
 
-    local ok, parent_name = pcall(function()
+    local name_ok, parent_name = pcall(function()
         return parent:GetName()
     end)
-    if not ok then
+    if not name_ok then
         return nil
     end
 
@@ -18,10 +22,10 @@ local function find_frame_by_name_recursively(parent, name)
         return parent
     end
 
-    local ok2, parent_children = pcall(function()
+    local children_ok, parent_children = pcall(function()
         return { parent:GetChildren() }
     end)
-    if not ok2 then
+    if not children_ok then
         return
     end
 

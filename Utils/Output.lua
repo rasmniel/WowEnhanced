@@ -38,7 +38,7 @@ end
 
 --- Output a usage format to help the user with commands.
 ---@param command string The name of the command.
----@param table arguments A table like { name = type } with constraints for the command's arguments.
+---@param table arguments An associative table with textual constraints for the command's arguments.
 function Output.Usage(command, arguments)
     local usage = 'Usage: /' .. command
     for field, type in pairs(arguments) do

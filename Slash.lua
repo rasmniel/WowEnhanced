@@ -61,6 +61,40 @@ RegisterSlash('togglemute', function()
     addon.CVar.Toggle('Sound_EnableAllSound', 0, 1)
 end)
 
+-- Checklist
+
+RegisterSlash('check', function(args, arg_string)
+    local target = table.remove(args)
+    target = tonumber(target)
+    local item = arg_string:gsub(' ' .. target, '')
+    addon.Checklist.CheckItemCount(item, target)
+end)
+
+RegisterSlash('checkpot', function(args)
+    local target = args[1]
+    if target then
+        target = tonumber(target)
+    end
+    addon.Checklist.CheckPot(target)
+end)
+
+RegisterSlash('checkpotm', function(args)
+    local target = args[1]
+    if target then
+        target = tonumber(target)
+    end
+    addon.Checklist.CheckPot(target, true)
+end)
+
+RegisterSlash('checkpoison', function(args)
+    local type, target = unpack(args)
+    addon.Checklist.CheckPoison(type, target)
+end)
+
+RegisterSlash('checkrepair', function()
+    addon.Checklist.CheckDurability()
+end)
+
 -- Timer
 
 RegisterSlash('startcombat', function(args)
@@ -69,17 +103,4 @@ RegisterSlash('startcombat', function(args)
         label = tostring(label)
     end
     addon.Timer.CombatTime(label)
-end)
-
--- Checklist
-
-RegisterSlash('checklist', function(args, arg_string)
-    local target = table.remove(args)
-    target = tonumber(target)
-    local item = arg_string:gsub(' ' .. target, '')
-    addon.Checklist.CheckItemCount(item, target)
-end)
-
-RegisterSlash('checkrepair', function()
-    addon.Checklist.CheckDurability()
 end)

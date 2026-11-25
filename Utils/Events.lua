@@ -48,7 +48,7 @@ function Events.Once(event, handler)
     Events.Subscribe(event, internal)
 end
 
--- Combat event shorthands
+-- Event shorthands
 
 function Events.NextCombatStart(handler)
     Events.Once('PLAYER_REGEN_DISABLED', handler)
