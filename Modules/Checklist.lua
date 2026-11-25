@@ -7,7 +7,7 @@ local colors = addon.Output.Colors
 local function get_item_count_by_name(name)
     local id = C_Item.GetItemInfoInstant(name)
     if not id then
-        return -1
+        return 0
     end
     return C_Item.GetItemCount(id, false, false, false)
 end
@@ -39,7 +39,7 @@ local function get_severity_color(value, target)
         return colors.white
     elseif value == 0 or value == 1 or value == 2 then
         return colors.red
-    elseif value < target / 2 then
+    elseif value <= target / 2 then
         return colors.orange
     elseif value < target then
         return colors.green
@@ -87,9 +87,9 @@ function Checklist.CheckPoison(type, target)
     elseif type == 'mind' then
         poison = find_suffixed_item('Mind-numbing Poison', { '', 'II', 'III' })
     elseif type == 'crippling' then
-        poison = find_suffixed_item('Cripping Poison', { '', 'II' })
+        poison = find_suffixed_item('Crippling Poison', { '', 'II' })
     else
-        addon.Output.Usage('poison', { type = 'instant|deadly|wound|mind|crippling' })
+        addon.Output.Usage('poison', { type = 'Instant|Deadly|Wound|Mind|Crippling' })
         return
     end
 

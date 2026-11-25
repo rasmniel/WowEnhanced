@@ -65,8 +65,14 @@ end)
 
 RegisterSlash('check', function(args, arg_string)
     local target = table.remove(args)
+    if not target then
+        return
+    end
     target = tonumber(target)
     local item = arg_string:gsub(' ' .. target, '')
+    if not item then
+        return
+    end
     addon.Checklist.CheckItemCount(item, target)
 end)
 
@@ -74,6 +80,8 @@ RegisterSlash('checkpot', function(args)
     local target = args[1]
     if target then
         target = tonumber(target)
+    else
+        target = 5
     end
     addon.Checklist.CheckPot(target)
 end)
@@ -82,12 +90,19 @@ RegisterSlash('checkpotm', function(args)
     local target = args[1]
     if target then
         target = tonumber(target)
+    else
+        target = 5
     end
     addon.Checklist.CheckPot(target, true)
 end)
 
 RegisterSlash('checkpoison', function(args)
     local type, target = unpack(args)
+    if target then
+        target = tonumber(target)
+    else
+        target = 20
+    end
     addon.Checklist.CheckPoison(type, target)
 end)
 
