@@ -24,6 +24,9 @@ local function run_combat_timer(label)
     addon.Events.NextCombatEnd(function()
         Stopwatch_Pause()
         running = false
+        if label and label ~= '' then
+            addon.Output.Raid('Combat ended after ' .. math.floor(StopwatchTicker.timer) .. 's', ChatTypeInfo['SYSTEM'])
+        end
     end)
 end
 

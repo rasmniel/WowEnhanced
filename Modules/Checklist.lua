@@ -67,7 +67,7 @@ end
 ---@param mana boolean Whether the check is for mana potions.
 function Checklist.CheckPot(target, mana)
     local type = mana and 'Mana' or 'Healing'
-    local potion = find_prefixed_item(type .. ' Potion', { 'Minor', 'Lesser', '', 'Greater', 'Superior', 'Major' })
+    local potion = find_prefixed_item(type .. ' Potion', { 'Major', 'Superior', 'Greater', '', 'Lesser', 'Minor' })
 
     Checklist.CheckItemCount(potion, target)
 end
@@ -79,15 +79,15 @@ function Checklist.CheckPoison(type, target)
     local poison = nil
     type = string.lower(type)
     if type == 'instant' then
-        poison = find_suffixed_item('Instant Poison', { '', 'II', 'III', 'IV', 'V', 'VI' })
+        poison = find_suffixed_item('Instant Poison', { 'VI', 'V', 'IV', 'III', 'II', '' })
     elseif type == 'deadly' then
-        poison = find_suffixed_item('Deadly Poison', { '', 'II', 'III', 'IV', 'V' })
+        poison = find_suffixed_item('Deadly Poison', { 'V', 'IV', 'III', 'II', '' })
     elseif type == 'wound' then
-        poison = find_suffixed_item('Wound Poison', { '', 'II', 'III', 'IV' })
+        poison = find_suffixed_item('Wound Poison', { 'IV', 'III', 'II', '' })
     elseif type == 'mind' then
-        poison = find_suffixed_item('Mind-numbing Poison', { '', 'II', 'III' })
+        poison = find_suffixed_item('Mind-numbing Poison', { 'III', 'II', '' })
     elseif type == 'crippling' then
-        poison = find_suffixed_item('Crippling Poison', { '', 'II' })
+        poison = find_suffixed_item('Crippling Poison', { 'II', '' })
     else
         addon.Output.Usage('poison', { type = 'Instant|Deadly|Wound|Mind|Crippling' })
         return
